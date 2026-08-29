@@ -1,0 +1,27 @@
+{
+  "id": "subtraction-crossing-20",
+  "title": "Minus mit Zehnerübergang bis 20",
+  "operation": "subtraction",
+
+  "generator": {
+    "minuendMin": 11,
+    "minuendMax": 19,
+
+    "subtrahendMin": 2,
+    "subtrahendMax": 9,
+
+    "resultMin": 1,
+    "resultMax": 9,
+
+    "requireTensCrossing": true,
+    "allowNegative": false
+  },
+
+  "session": {
+    "questions": 10
+  },
+
+  "hint": {
+    "type": "bridgeToTen"
+  }
+}
