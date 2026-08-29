@@ -24,8 +24,25 @@ function createExercise(): Exercise {
 }
 
 type Feedback = 'correct' | 'wrong' | null;
+type TrainerMode = 'learning' | 'practice';
 
 function App() {
+  const [trainerMode, setTrainerMode] =
+    useState<TrainerMode>('learning');
+
+  const toggleTrainerMode = () => {
+    setTrainerMode((current) => {
+      const next =
+        current === 'learning'
+          ? 'practice'
+          : 'learning';
+
+      setShowHint(next === 'learning');
+
+      return next;
+    });
+  };
+
   const totalQuestions =
     config.session.questions;
 
@@ -133,11 +150,12 @@ function App() {
   };
 
   const handleHint = () => {
-    setShowHint(
-      (current) => !current
-    );
+    setShowHint((current) => !current);
 
-    if (!hintUsedForCurrentQuestion) {
+    if (
+      trainerMode === 'practice' &&
+      !hintUsedForCurrentQuestion
+    ) {
       setHintsUsed(
         (current) => current + 1
       );
@@ -163,7 +181,7 @@ function App() {
     setUserAnswer('');
     setFeedback(null);
 
-    setShowHint(true);
+    setShowHint(trainerMode === 'learning');
 
     setAttemptsForCurrentQuestion(0);
 
@@ -176,7 +194,7 @@ function App() {
     setUserAnswer('');
     setFeedback(null);
 
-    setShowHint(true);
+    setShowHint(trainerMode === 'learning');
 
     setQuestionNumber(1);
 
@@ -279,27 +297,64 @@ function App() {
         )}
 
         {feedback !== 'correct' && (
-          <div className="hint-toggle">
-            <span>💡 Tipps anzeigen</span>
+          <div className="mode-toggle">
+            <span
+              className={
+                trainerMode === 'learning'
+                  ? 'mode-label active'
+                  : 'mode-label'
+              }
+            >
+              Lernmodus
+            </span>
 
             <label className="switch">
               <input
                 type="checkbox"
-                checked={showHint}
-                onChange={handleHint}
+                checked={trainerMode === 'practice'}
+                onChange={toggleTrainerMode}
               />
 
               <span className="slider" />
             </label>
+
+            <span
+              className={
+                trainerMode === 'practice'
+                  ? 'mode-label active'
+                  : 'mode-label'
+              }
+            >
+              Übungsmodus
+            </span>
           </div>
         )}
 
-        {showHint && (
+        {trainerMode === 'learning' && (
           <Hint
             left={exercise.left}
             right={exercise.right}
           />
         )}
+
+        {trainerMode === 'practice' &&
+          feedback !== 'correct' && (
+            <>
+              <button
+                className="hint-button"
+                onClick={handleHint}
+              >
+                💡 {showHint ? 'Tipp schließen' : 'Tipp zeigen'}
+              </button>
+
+              {showHint && (
+                <Hint
+                  left={exercise.left}
+                  right={exercise.right}
+                />
+              )}
+            </>
+          )}
 
         <NumberPad
           onNumberClick={handleNumberClick}

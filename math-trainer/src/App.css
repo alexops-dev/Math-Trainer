@@ -451,3 +451,31 @@ h1 {
 .switch input:checked + .slider::before {
   transform: translateX(24px);
 }
+
+.mode-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 14px;
+
+  margin-bottom: 20px;
+
+  padding: 12px 16px;
+
+  background: #f7f8fc;
+
+  border-radius: 16px;
+}
+
+.mode-label {
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #98a2b3;
+}
+
+.mode-label.active {
+  color: #4263eb;
+  font-weight: 700;
+}
