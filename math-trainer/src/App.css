@@ -230,6 +230,7 @@ h1 {
 }
 
 .hint-box {
+  position: relative;
   background: #fff8dc;
 
   border-radius: 20px;
@@ -239,6 +240,21 @@ h1 {
   margin-bottom: 24px;
 
   text-align: left;
+}
+
+.hint-cube {
+  position: absolute;
+
+  top: 14px;
+  right: 14px;
+
+  width: 46px;
+  height: 46px;
+
+  object-fit: contain;
+
+  pointer-events: none;
+  user-select: none;
 }
 
 .hint-title {
@@ -376,6 +392,30 @@ h1 {
   color: #667085;
 
   font-size: 12px;
+}
+
+.summary-support {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 8px;
+
+  margin-bottom: 24px;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  color: #667085;
+}
+
+.summary-heart {
+  width: 32px;
+  height: 32px;
+
+  object-fit: contain;
+
+  image-rendering: pixelated;
 }
 
 .hint-toggle {
@@ -537,7 +577,7 @@ h1 {
   .hint-mobile {
     display: block;
   }
-  
+
   .app-logo {
     height: 72px;
   }

@@ -80,6 +80,17 @@ function SessionSummary({
         </div>
       </div>
 
+    <div className="summary-support">
+    <img
+        src="/heart.png"
+        alt=""
+        className="summary-heart"
+        aria-hidden="true"
+    />
+
+    <span>Du schaffst das!</span>
+    </div>
+
       <button
         className="primary-button"
         onClick={onRestart}

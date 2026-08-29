@@ -14,6 +14,12 @@ function Hint({
 
   return (
     <div className="hint-box">
+        <img
+            src="/cube-grass.png"
+            alt=""
+            className="hint-cube"
+            aria-hidden="true"
+        />
       <div className="hint-title">
         💡 Schritt für Schritt
       </div>
