@@ -1,6 +1,9 @@
 # Math Trainer
 
-A modular, open-source web application for helping children practice mathematics independently.
+Math Trainer is a source-available educational pet project.
+The source code is publicly available for learning, personal use, experimentation, and contributions. Commercial use is not permitted under the current license. 
+
+This web application is created for helping children practice mathematics independently.
 
 The project is primarily designed around topics taught in **German primary schools (Grundschule)** and started with one concrete learning goal:
 
