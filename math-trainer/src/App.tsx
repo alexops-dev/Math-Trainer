@@ -217,7 +217,18 @@ function App() {
     return (
       <main className="app">
         <div className="trainer-card">
-          <h1>Math Trainer</h1>
+         
+         <div className="app-header">
+          <img
+            src="/logo-math-trainer.png"
+            alt="Math Trainer"
+            className="app-logo"
+          />
+
+          <p className="level-title">
+            {config.title}
+          </p>
+        </div>
 
           <SessionSummary
             totalQuestions={totalQuestions}
@@ -241,11 +252,18 @@ function App() {
   return (
     <main className="app">
       <div className="trainer-card">
-        <h1>Math Trainer</h1>
+
+      <div className="app-header">
+        <img
+          src="/logo-math-trainer.png"
+          alt="Math Trainer"
+          className="app-logo"
+        />
 
         <p className="level-title">
           {config.title}
         </p>
+      </div>
 
         <div className="session-info">
           <span>
