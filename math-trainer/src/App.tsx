@@ -39,7 +39,7 @@ function App() {
     useState<Feedback>(null);
 
   const [showHint, setShowHint] =
-    useState(false);
+    useState(true);
 
   const [questionNumber, setQuestionNumber] =
     useState(1);
@@ -163,7 +163,7 @@ function App() {
     setUserAnswer('');
     setFeedback(null);
 
-    setShowHint(false);
+    setShowHint(true);
 
     setAttemptsForCurrentQuestion(0);
 
@@ -176,7 +176,7 @@ function App() {
     setUserAnswer('');
     setFeedback(null);
 
-    setShowHint(false);
+    setShowHint(true);
 
     setQuestionNumber(1);
 
@@ -279,15 +279,19 @@ function App() {
         )}
 
         {feedback !== 'correct' && (
-          <button
-            className="hint-button"
-            onClick={handleHint}
-          >
-            💡{' '}
-            {showHint
-              ? 'Tipp schließen'
-              : 'Tipp'}
-          </button>
+          <div className="hint-toggle">
+            <span>💡 Tipps anzeigen</span>
+
+            <label className="switch">
+              <input
+                type="checkbox"
+                checked={showHint}
+                onChange={handleHint}
+              />
+
+              <span className="slider" />
+            </label>
+          </div>
         )}
 
         {showHint && (

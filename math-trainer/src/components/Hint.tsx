@@ -5,8 +5,12 @@ interface HintProps {
   right: number;
 }
 
-function Hint({ left, right }: HintProps) {
-  const hint = buildBridgeToTenHint(left, right);
+function Hint({
+  left,
+  right,
+}: HintProps) {
+  const hint =
+    buildBridgeToTenHint(left, right);
 
   return (
     <div className="hint-box">
@@ -24,17 +28,27 @@ function Hint({ left, right }: HintProps) {
         </span>
 
         <strong>
-          {hint.start} − {hint.firstSubtract} = {hint.firstResult}
+          {hint.start} − {hint.toTenAmount} = {hint.ten}
         </strong>
       </div>
 
       <div className="hint-step">
         <span className="hint-label">
-          2. Jetzt den Rest:
+          2. Zerlege die {hint.subtract}:
         </span>
 
         <strong>
-          {hint.firstResult} − {hint.secondSubtract} = ?
+          {hint.subtract} = {hint.toTenAmount} + {hint.remainingAmount}
+        </strong>
+      </div>
+
+      <div className="hint-step">
+        <span className="hint-label">
+          3. Jetzt den Rest:
+        </span>
+
+        <strong>
+          {hint.ten} − {hint.remainingAmount} = ?
         </strong>
       </div>
     </div>

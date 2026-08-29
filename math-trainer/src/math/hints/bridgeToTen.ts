@@ -2,10 +2,11 @@ export interface BridgeToTenHint {
   start: number;
   subtract: number;
 
-  firstSubtract: number;
-  firstResult: number;
+  toTenAmount: number;
+  ten: number;
 
-  secondSubtract: number;
+  remainingAmount: number;
+
   finalResult: number;
 }
 
@@ -15,20 +16,24 @@ export function buildBridgeToTenHint(
 ): BridgeToTenHint {
   const ones = left % 10;
 
-  const firstSubtract = ones;
-  const firstResult = left - firstSubtract;
+  const toTenAmount = ones;
+  const ten = left - toTenAmount;
 
-  const secondSubtract = right - firstSubtract;
-  const finalResult = left - right;
+  const remainingAmount =
+    right - toTenAmount;
+
+  const finalResult =
+    left - right;
 
   return {
     start: left,
     subtract: right,
 
-    firstSubtract,
-    firstResult,
+    toTenAmount,
+    ten,
 
-    secondSubtract,
+    remainingAmount,
+
     finalResult,
   };
 }
