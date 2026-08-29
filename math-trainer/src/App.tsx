@@ -10,6 +10,7 @@ import type {
 } from './math/types';
 
 import NumberPad from './components/NumberPad';
+import Hint from './components/Hint';
 
 import './App.css';
 
@@ -30,12 +31,24 @@ function App() {
   const [feedback, setFeedback] =
     useState<Feedback>(null);
 
+  const [showHint, setShowHint] =
+    useState(false);
+
+  const [questionNumber, setQuestionNumber] =
+    useState(1);
+
+  const [correctAnswers, setCorrectAnswers] =
+    useState(0);
+
+  const [streak, setStreak] =
+    useState(0);
+
   const handleNumberClick = (number: number) => {
     if (feedback === 'correct') {
       return;
     }
 
-    setUserAnswer((current) => current + number);
+    setUserAnswer(String(number));
     setFeedback(null);
   };
 
@@ -53,15 +66,28 @@ function App() {
 
     if (numericAnswer === exercise.answer) {
       setFeedback('correct');
+      setCorrectAnswers((current) => current + 1);
+      setStreak((current) => current + 1);
     } else {
       setFeedback('wrong');
+      setStreak(0);
     }
   };
 
   const nextExercise = () => {
     setExercise(createExercise());
+
     setUserAnswer('');
     setFeedback(null);
+    setShowHint(false);
+
+    setQuestionNumber(
+      (current) => current + 1
+    );
+  };
+
+  const toggleHint = () => {
+    setShowHint((current) => !current);
   };
 
   return (
@@ -72,6 +98,31 @@ function App() {
         <p className="level-title">
           {config.title}
         </p>
+
+        <div className="session-info">
+          <span>
+            Aufgabe {questionNumber} von {config.session.questions}
+          </span>
+
+          {streak > 0 && (
+            <span>
+              🔥 {streak}
+            </span>
+          )}
+        </div>
+
+        <div className="progress-bar">
+          <div
+            className="progress-value"
+            style={{
+              width: `${
+                ((questionNumber - 1) /
+                  config.session.questions) *
+                100
+              }%`,
+            }}
+          />
+        </div>
 
         <div className="exercise">
           <span>{exercise.left}</span>
@@ -94,6 +145,22 @@ function App() {
           <div className="feedback wrong">
             🤔 Versuch es noch einmal
           </div>
+        )}
+
+        {feedback !== 'correct' && (
+          <button
+            className="hint-button"
+            onClick={toggleHint}
+          >
+            💡 {showHint ? 'Tipp schließen' : 'Tipp'}
+          </button>
+        )}
+
+        {showHint && (
+          <Hint
+            left={exercise.left}
+            right={exercise.right}
+          />
         )}
 
         <NumberPad
@@ -119,6 +186,10 @@ function App() {
             Weiter
           </button>
         )}
+
+        <div className="score">
+          Richtig: {correctAnswers}
+        </div>
       </div>
     </main>
   );

@@ -173,3 +173,111 @@ h1 {
 
   cursor: not-allowed;
 }
+
+.session-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 10px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  color: #667085;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+
+  background: #edf1f8;
+
+  border-radius: 999px;
+
+  overflow: hidden;
+
+  margin-bottom: 32px;
+}
+
+.progress-value {
+  height: 100%;
+
+  background: #4263eb;
+
+  border-radius: 999px;
+
+  transition: width 0.3s ease;
+}
+
+.hint-button {
+  border: none;
+
+  background: transparent;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  color: #4263eb;
+
+  cursor: pointer;
+
+  margin-bottom: 16px;
+}
+
+.hint-button:hover {
+  text-decoration: underline;
+}
+
+.hint-box {
+  background: #fff8dc;
+
+  border-radius: 20px;
+
+  padding: 20px;
+
+  margin-bottom: 24px;
+
+  text-align: left;
+}
+
+.hint-title {
+  font-size: 19px;
+  font-weight: 700;
+
+  margin-bottom: 14px;
+}
+
+.hint-original {
+  text-align: center;
+
+  font-size: 28px;
+  font-weight: 700;
+
+  margin-bottom: 16px;
+}
+
+.hint-step {
+  display: flex;
+  flex-direction: column;
+
+  gap: 4px;
+
+  padding: 10px 0;
+
+  font-size: 20px;
+}
+
+.hint-label {
+  font-size: 15px;
+
+  color: #746c55;
+}
+
+.score {
+  margin-top: 18px;
+
+  font-size: 15px;
+
+  color: #888;
+}
