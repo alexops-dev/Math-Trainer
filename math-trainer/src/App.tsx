@@ -11,22 +11,29 @@ import type {
 
 import NumberPad from './components/NumberPad';
 import Hint from './components/Hint';
+import SessionSummary from './components/SessionSummary';
 
 import './App.css';
 
 const config = subtractionConfig as ExerciseConfig;
 
 function createExercise(): Exercise {
-  return generateSubtractionExercise(config.generator);
+  return generateSubtractionExercise(
+    config.generator
+  );
 }
 
 type Feedback = 'correct' | 'wrong' | null;
 
 function App() {
+  const totalQuestions =
+    config.session.questions;
+
   const [exercise, setExercise] =
     useState<Exercise>(createExercise());
 
-  const [userAnswer, setUserAnswer] = useState('');
+  const [userAnswer, setUserAnswer] =
+    useState('');
 
   const [feedback, setFeedback] =
     useState<Feedback>(null);
@@ -37,13 +44,35 @@ function App() {
   const [questionNumber, setQuestionNumber] =
     useState(1);
 
-  const [correctAnswers, setCorrectAnswers] =
+  const [firstTryCorrect, setFirstTryCorrect] =
+    useState(0);
+
+  const [wrongAttempts, setWrongAttempts] =
+    useState(0);
+
+  const [attemptsForCurrentQuestion, setAttemptsForCurrentQuestion] =
     useState(0);
 
   const [streak, setStreak] =
     useState(0);
 
-  const handleNumberClick = (number: number) => {
+  const [bestStreak, setBestStreak] =
+    useState(0);
+
+  const [hintsUsed, setHintsUsed] =
+    useState(0);
+
+  const [
+    hintUsedForCurrentQuestion,
+    setHintUsedForCurrentQuestion,
+  ] = useState(false);
+
+  const [sessionFinished, setSessionFinished] =
+    useState(false);
+
+  const handleNumberClick = (
+    number: number
+  ) => {
     if (feedback === 'correct') {
       return;
     }
@@ -58,37 +87,137 @@ function App() {
   };
 
   const checkAnswer = () => {
-    if (userAnswer === '') {
+    if (
+      userAnswer === '' ||
+      feedback === 'correct'
+    ) {
       return;
     }
 
-    const numericAnswer = Number(userAnswer);
+    const numericAnswer =
+      Number(userAnswer);
 
-    if (numericAnswer === exercise.answer) {
+    if (
+      numericAnswer === exercise.answer
+    ) {
       setFeedback('correct');
-      setCorrectAnswers((current) => current + 1);
-      setStreak((current) => current + 1);
+
+      if (
+        attemptsForCurrentQuestion === 0
+      ) {
+        setFirstTryCorrect(
+          (current) => current + 1
+        );
+      }
+
+      const newStreak = streak + 1;
+
+      setStreak(newStreak);
+
+      setBestStreak((current) =>
+        Math.max(current, newStreak)
+      );
     } else {
       setFeedback('wrong');
+
+      setWrongAttempts(
+        (current) => current + 1
+      );
+
+      setAttemptsForCurrentQuestion(
+        (current) => current + 1
+      );
+
       setStreak(0);
     }
   };
 
-  const nextExercise = () => {
-    setExercise(createExercise());
+  const handleHint = () => {
+    setShowHint(
+      (current) => !current
+    );
 
-    setUserAnswer('');
-    setFeedback(null);
-    setShowHint(false);
+    if (!hintUsedForCurrentQuestion) {
+      setHintsUsed(
+        (current) => current + 1
+      );
+
+      setHintUsedForCurrentQuestion(true);
+    }
+  };
+
+  const nextExercise = () => {
+    if (
+      questionNumber >= totalQuestions
+    ) {
+      setSessionFinished(true);
+      return;
+    }
+
+    setExercise(createExercise());
 
     setQuestionNumber(
       (current) => current + 1
     );
+
+    setUserAnswer('');
+    setFeedback(null);
+
+    setShowHint(false);
+
+    setAttemptsForCurrentQuestion(0);
+
+    setHintUsedForCurrentQuestion(false);
   };
 
-  const toggleHint = () => {
-    setShowHint((current) => !current);
+  const restartSession = () => {
+    setExercise(createExercise());
+
+    setUserAnswer('');
+    setFeedback(null);
+
+    setShowHint(false);
+
+    setQuestionNumber(1);
+
+    setFirstTryCorrect(0);
+    setWrongAttempts(0);
+
+    setAttemptsForCurrentQuestion(0);
+
+    setStreak(0);
+    setBestStreak(0);
+
+    setHintsUsed(0);
+
+    setHintUsedForCurrentQuestion(false);
+
+    setSessionFinished(false);
   };
+
+  if (sessionFinished) {
+    return (
+      <main className="app">
+        <div className="trainer-card">
+          <h1>Math Trainer</h1>
+
+          <SessionSummary
+            totalQuestions={totalQuestions}
+            firstTryCorrect={firstTryCorrect}
+            wrongAttempts={wrongAttempts}
+            hintsUsed={hintsUsed}
+            bestStreak={bestStreak}
+            onRestart={restartSession}
+          />
+        </div>
+      </main>
+    );
+  }
+
+  const progress =
+    ((questionNumber - 1) /
+      totalQuestions) *
+    100;
 
   return (
     <main className="app">
@@ -101,7 +230,8 @@ function App() {
 
         <div className="session-info">
           <span>
-            Aufgabe {questionNumber} von {config.session.questions}
+            Aufgabe {questionNumber} von{' '}
+            {totalQuestions}
           </span>
 
           {streak > 0 && (
@@ -115,19 +245,20 @@ function App() {
           <div
             className="progress-value"
             style={{
-              width: `${
-                ((questionNumber - 1) /
-                  config.session.questions) *
-                100
-              }%`,
+              width: `${progress}%`,
             }}
           />
         </div>
 
         <div className="exercise">
           <span>{exercise.left}</span>
-          <span>{exercise.operator}</span>
+
+          <span>
+            {exercise.operator}
+          </span>
+
           <span>{exercise.right}</span>
+
           <span>=</span>
 
           <div className="answer-box">
@@ -150,9 +281,12 @@ function App() {
         {feedback !== 'correct' && (
           <button
             className="hint-button"
-            onClick={toggleHint}
+            onClick={handleHint}
           >
-            💡 {showHint ? 'Tipp schließen' : 'Tipp'}
+            💡{' '}
+            {showHint
+              ? 'Tipp schließen'
+              : 'Tipp'}
           </button>
         )}
 
@@ -183,12 +317,16 @@ function App() {
             className="primary-button"
             onClick={nextExercise}
           >
-            Weiter
+            {questionNumber ===
+            totalQuestions
+              ? 'Ergebnis'
+              : 'Weiter'}
           </button>
         )}
 
         <div className="score">
-          Richtig: {correctAnswers}
+          Beim ersten Versuch richtig:{' '}
+          {firstTryCorrect}
         </div>
       </div>
     </main>

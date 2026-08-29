@@ -364,6 +364,12 @@ Please keep mathematical logic independent from presentation components whenever
 
 ## License
 
-A license has not been selected yet.
+This project is licensed under the PolyForm Noncommercial License 1.0.0.
 
-For a public open-source repository, a permissive license such as **MIT** can be added later if appropriate.
+You may use, study, modify, and share the software for noncommercial
+purposes subject to the terms of the license.
+
+Commercial use is not permitted without separate permission from the
+copyright holder.
+
+Copyright © 2026-2027 Alexandra Baga.

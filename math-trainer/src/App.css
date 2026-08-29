@@ -281,3 +281,99 @@ h1 {
 
   color: #888;
 }
+
+.session-summary {
+  text-align: center;
+
+  padding-top: 10px;
+}
+
+.summary-emoji {
+  font-size: 64px;
+
+  margin-bottom: 8px;
+}
+
+.session-summary h2 {
+  margin: 0;
+
+  font-size: 36px;
+}
+
+.summary-message {
+  color: #667085;
+
+  font-size: 18px;
+
+  margin-top: 10px;
+  margin-bottom: 32px;
+}
+
+.summary-score {
+  font-size: 56px;
+  font-weight: 800;
+
+  line-height: 1;
+}
+
+.summary-label {
+  margin-top: 8px;
+
+  font-size: 16px;
+
+  color: #667085;
+}
+
+.summary-accuracy {
+  font-size: 24px;
+  font-weight: 700;
+
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
+
+.summary-stats {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 12px;
+
+  margin-bottom: 32px;
+}
+
+.summary-stat {
+  background: #f3f6fb;
+
+  border-radius: 18px;
+
+  padding: 16px 8px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+.summary-stat > span {
+  font-size: 28px;
+}
+
+.summary-stat strong {
+  display: block;
+
+  font-size: 24px;
+}
+
+.summary-stat small {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #667085;
+
+  font-size: 12px;
+}
