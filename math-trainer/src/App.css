@@ -336,7 +336,7 @@ h1 {
   display: grid;
 
   grid-template-columns:
-    repeat(3, 1fr);
+    repeat(auto-fit, minmax(100px, 1fr));
 
   gap: 12px;
 

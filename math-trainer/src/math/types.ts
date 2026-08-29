@@ -1,4 +1,6 @@
 export type Operator = '+' | '-';
+export type TrainerMode = 'learning' | 'practice';
+
 
 export interface Exercise {
   id: string;

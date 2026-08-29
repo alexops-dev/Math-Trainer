@@ -1,3 +1,5 @@
+import type {TrainerMode,} from '../math/types';
+
 interface SessionSummaryProps {
   totalQuestions: number;
   firstTryCorrect: number;
@@ -5,6 +7,7 @@ interface SessionSummaryProps {
   hintsUsed: number;
   bestStreak: number;
   onRestart: () => void;
+  mode: TrainerMode;
 }
 
 function SessionSummary({
@@ -14,6 +17,7 @@ function SessionSummary({
   hintsUsed,
   bestStreak,
   onRestart,
+  mode,
 }: SessionSummaryProps) {
   const accuracy = Math.round(
     (firstTryCorrect / totalQuestions) * 100
@@ -54,12 +58,16 @@ function SessionSummary({
         </div>
 
         <div className="summary-stat">
-          <span>💡</span>
+            {mode === 'practice' && (
+            <div className="summary-stat">
+                <span>💡</span>
 
-          <div>
-            <strong>{hintsUsed}</strong>
-            <small>Tipps benutzt</small>
-          </div>
+                <div>
+                <strong>{hintsUsed}</strong>
+                <small>Tipps benutzt</small>
+                </div>
+            </div>
+            )}
         </div>
 
         <div className="summary-stat">

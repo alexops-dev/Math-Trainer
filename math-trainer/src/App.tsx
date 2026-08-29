@@ -7,6 +7,7 @@ import { generateSubtractionExercise } from './math/generators/subtraction';
 import type {
   Exercise,
   ExerciseConfig,
+  TrainerMode,
 } from './math/types';
 
 import NumberPad from './components/NumberPad';
@@ -24,7 +25,6 @@ function createExercise(): Exercise {
 }
 
 type Feedback = 'correct' | 'wrong' | null;
-type TrainerMode = 'learning' | 'practice';
 
 function App() {
   const [trainerMode, setTrainerMode] =
@@ -226,6 +226,7 @@ function App() {
             hintsUsed={hintsUsed}
             bestStreak={bestStreak}
             onRestart={restartSession}
+            mode={trainerMode}
           />
         </div>
       </main>
