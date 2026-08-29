@@ -30,7 +30,7 @@ button {
 
 .trainer-card {
   width: 100%;
-  max-width: 520px;
+  max-width: 1080px;
 
   background: white;
 
@@ -478,4 +478,83 @@ h1 {
 .mode-label.active {
   color: #4263eb;
   font-weight: 700;
+}
+
+/* Responsive trainer layout */
+
+.trainer-layout {
+  display: grid;
+
+  grid-template-columns:
+    minmax(420px, 520px)
+    minmax(300px, 380px);
+
+  justify-content: center;
+  align-items: start;
+
+  gap: 40px;
+}
+
+.trainer-main {
+  min-width: 0;
+}
+
+.hint-desktop {
+  display: block;
+
+  min-width: 0;
+}
+
+.hint-mobile {
+  display: none;
+}
+
+.hint-desktop .hint-box {
+  margin-bottom: 0;
+
+  position: sticky;
+  top: 24px;
+
+  padding: 24px;
+}
+
+
+/* Tablet and mobile */
+
+@media (max-width: 850px) {
+  .trainer-card {
+    max-width: 520px;
+  }
+
+  .trainer-layout {
+    display: block;
+  }
+
+  .hint-desktop {
+    display: none;
+  }
+
+  .hint-mobile {
+    display: block;
+  }
+}
+
+/* Mobile hint button */
+.hint-button-mobile {
+  display: none;
+}
+
+.hint-button-desktop {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 850px) {
+  .hint-button-mobile {
+    display: block;
+  }
+
+  .hint-button-desktop {
+    display: none;
+  }
 }

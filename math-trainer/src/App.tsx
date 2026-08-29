@@ -270,125 +270,173 @@ function App() {
         </div>
 
         <div className="exercise">
-          <span>{exercise.left}</span>
+          <div className="trainer-layout">
+            <section className="trainer-main">
+              <div className="exercise">
+                <span>{exercise.left}</span>
 
-          <span>
-            {exercise.operator}
-          </span>
+                <span>
+                  {exercise.operator}
+                </span>
 
-          <span>{exercise.right}</span>
+                <span>{exercise.right}</span>
 
-          <span>=</span>
+                <span>=</span>
 
-          <div className="answer-box">
-            {userAnswer || '?'}
-          </div>
-        </div>
+                <div className="answer-box">
+                  {userAnswer || '?'}
+                </div>
+              </div>
 
-        {feedback === 'correct' && (
-          <div className="feedback correct">
-            🎉 Richtig!
-          </div>
-        )}
+              {feedback === 'correct' && (
+                <div className="feedback correct">
+                  🎉 Richtig!
+                </div>
+              )}
 
-        {feedback === 'wrong' && (
-          <div className="feedback wrong">
-            🤔 Versuch es noch einmal
-          </div>
-        )}
+              {feedback === 'wrong' && (
+                <div className="feedback wrong">
+                  🤔 Versuch es noch einmal
+                </div>
+              )}
 
-        {feedback !== 'correct' && (
-          <div className="mode-toggle">
-            <span
-              className={
-                trainerMode === 'learning'
-                  ? 'mode-label active'
-                  : 'mode-label'
-              }
-            >
-              Lernmodus
-            </span>
+              {feedback !== 'correct' && (
+                <div className="mode-toggle">
+                  <span
+                    className={
+                      trainerMode === 'learning'
+                        ? 'mode-label active'
+                        : 'mode-label'
+                    }
+                  >
+                    Lernmodus
+                  </span>
 
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={trainerMode === 'practice'}
-                onChange={toggleTrainerMode}
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      checked={trainerMode === 'practice'}
+                      onChange={toggleTrainerMode}
+                    />
+
+                    <span className="slider" />
+                  </label>
+
+                  <span
+                    className={
+                      trainerMode === 'practice'
+                        ? 'mode-label active'
+                        : 'mode-label'
+                    }
+                  >
+                    Übungsmodus
+                  </span>
+                </div>
+              )}
+
+              <div className="hint-button-mobile">
+                {trainerMode === 'practice' &&
+                  feedback !== 'correct' && (
+                    <button
+                      className="hint-button"
+                      onClick={handleHint}
+                    >
+                      💡 {showHint ? 'Tipp schließen' : 'Tipp zeigen'}
+                    </button>
+                  )}
+              </div>
+
+              <div className="hint-mobile">
+                {trainerMode === 'learning' && (
+                  <Hint
+                    left={exercise.left}
+                    right={exercise.right}
+                  />
+                )}
+
+                {trainerMode === 'practice' &&
+                  showHint &&
+                  feedback !== 'correct' && (
+                    <Hint
+                      left={exercise.left}
+                      right={exercise.right}
+                    />
+                  )}
+              </div>
+
+              <NumberPad
+                onNumberClick={handleNumberClick}
+                onClear={handleClear}
               />
 
-              <span className="slider" />
-            </label>
+              {feedback !== 'correct' && (
+                <button
+                  className="primary-button"
+                  onClick={checkAnswer}
+                  disabled={userAnswer === ''}
+                >
+                  Prüfen
+                </button>
+              )}
 
-            <span
-              className={
-                trainerMode === 'practice'
-                  ? 'mode-label active'
-                  : 'mode-label'
-              }
-            >
-              Übungsmodus
-            </span>
-          </div>
-        )}
+              {feedback === 'correct' && (
+                <button
+                  className="primary-button"
+                  onClick={nextExercise}
+                >
+                  {questionNumber === totalQuestions
+                    ? 'Ergebnis'
+                    : 'Weiter'}
+                </button>
+              )}
 
-        {trainerMode === 'learning' && (
-          <Hint
-            left={exercise.left}
-            right={exercise.right}
-          />
-        )}
+              <div className="score">
+                Beim ersten Versuch richtig:{' '}
+                {firstTryCorrect}
+              </div>
+            </section>
 
-        {trainerMode === 'practice' &&
-          feedback !== 'correct' && (
-            <>
-              <button
-                className="hint-button"
-                onClick={handleHint}
-              >
-                💡 {showHint ? 'Tipp schließen' : 'Tipp zeigen'}
-              </button>
-
-              {showHint && (
+            <aside className="hint-desktop">
+              {trainerMode === 'learning' && (
                 <Hint
                   left={exercise.left}
                   right={exercise.right}
                 />
               )}
-            </>
-          )}
 
-        <NumberPad
-          onNumberClick={handleNumberClick}
-          onClear={handleClear}
-        />
+              {trainerMode === 'practice' &&
+                feedback !== 'correct' && (
+                  <>
+                    {!showHint && (
+                      <button
+                        className="hint-button hint-button-desktop"
+                        onClick={handleHint}
+                      >
+                        💡 Tipp zeigen
+                      </button>
+                    )}
 
-        {feedback !== 'correct' && (
-          <button
-            className="primary-button"
-            onClick={checkAnswer}
-            disabled={userAnswer === ''}
-          >
-            Prüfen
-          </button>
-        )}
+                    {showHint && (
+                      <>
+                        <button
+                          className="hint-button hint-button-desktop"
+                          onClick={handleHint}
+                        >
+                          💡 Tipp schließen
+                        </button>
 
-        {feedback === 'correct' && (
-          <button
-            className="primary-button"
-            onClick={nextExercise}
-          >
-            {questionNumber ===
-            totalQuestions
-              ? 'Ergebnis'
-              : 'Weiter'}
-          </button>
-        )}
-
-        <div className="score">
-          Beim ersten Versuch richtig:{' '}
-          {firstTryCorrect}
-        </div>
+                        <Hint
+                          left={exercise.left}
+                          right={exercise.right}
+                        />
+                      </>
+                    )}
+                  </>
+                )}
+            </aside>
+          </div>
       </div>
+    </div>
     </main>
   );
 }
