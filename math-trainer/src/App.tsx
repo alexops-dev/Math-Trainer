@@ -2,6 +2,13 @@ import { useState } from 'react';
 
 import HomePage from './pages/HomePage';
 import TrainerPage from './pages/TrainerPage';
+import {
+  exerciseRegistry,
+} from './exercises/registry';
+const subtractionExercise =
+  exerciseRegistry[
+    'subtraction-crossing-20'
+  ];
 
 import './App.css';
 
@@ -15,9 +22,12 @@ function App() {
 
   if (page === 'subtraction') {
     return (
-      <TrainerPage
-        onBack={() => setPage('home')}
-      />
+    <TrainerPage
+      exerciseModule={
+        subtractionExercise
+      }
+      onBack={() => setPage('home')}
+    />
     );
   }
 

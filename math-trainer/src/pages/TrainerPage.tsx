@@ -1,38 +1,35 @@
 import { useState } from 'react';
-
-import subtractionConfig from '../config/subtraction-crossing-20.json';
-
-import { generateSubtractionExercise } from '../math/generators/subtraction';
-
+import NumberPad from '../components/NumberPad';
+import SessionSummary from '../components/SessionSummary';
 import type {
   Exercise,
-  ExerciseConfig,
   TrainerMode,
 } from '../math/types';
-
-import NumberPad from '../components/NumberPad';
-import Hint from '../components/Hint';
-import SessionSummary from '../components/SessionSummary';
-
-const config = subtractionConfig as ExerciseConfig;
-
-function createExercise(): Exercise {
-  return generateSubtractionExercise(
-    config.generator
-  );
-}
+import type {
+  ExerciseModule,
+} from '../exercises/types';
 
 type Feedback = 'correct' | 'wrong' | null;
 
 interface TrainerPageProps {
+  exerciseModule: ExerciseModule;
   onBack: () => void;
 }
 
 function TrainerPage({
+  exerciseModule,
   onBack,
 }: TrainerPageProps) {
+  const {
+    title,
+    createExercise,
+    HintComponent,
+    session,
+    defaultMode = 'learning',
+    } = exerciseModule;
+
   const [trainerMode, setTrainerMode] =
-    useState<TrainerMode>('learning');
+    useState<TrainerMode>(defaultMode);
 
   const [showHint, setShowHint] =
     useState(true);
@@ -51,7 +48,7 @@ function TrainerPage({
   };
 
   const totalQuestions =
-    config.session.questions;
+    session.questions;
 
   const [exercise, setExercise] =
     useState<Exercise>(createExercise());
@@ -243,7 +240,7 @@ function TrainerPage({
             />
 
             <p className="level-title">
-              {config.title}
+              {title}
             </p>
           </div>
 
@@ -285,7 +282,7 @@ function TrainerPage({
           />
 
           <p className="level-title">
-            {config.title}
+            {title}
           </p>
         </div>
 
@@ -396,7 +393,7 @@ function TrainerPage({
 
             <div className="hint-mobile">
               {trainerMode === 'learning' && (
-                <Hint
+                <HintComponent
                   left={exercise.left}
                   right={exercise.right}
                 />
@@ -405,7 +402,7 @@ function TrainerPage({
               {trainerMode === 'practice' &&
                 showHint &&
                 feedback !== 'correct' && (
-                  <Hint
+                  <HintComponent
                     left={exercise.left}
                     right={exercise.right}
                   />
@@ -449,7 +446,7 @@ function TrainerPage({
 
           <aside className="hint-desktop">
             {trainerMode === 'learning' && (
-              <Hint
+              <HintComponent
                 left={exercise.left}
                 right={exercise.right}
               />
@@ -476,7 +473,7 @@ function TrainerPage({
                         💡 Tipp schließen
                       </button>
 
-                      <Hint
+                      <HintComponent
                         left={
                           exercise.left
                         }
