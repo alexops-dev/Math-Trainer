@@ -5,7 +5,7 @@ interface HintProps {
   right: number;
 }
 
-function Hint({ left, right }: HintProps) {
+function SubtractionHint({ left, right }: HintProps) {
   const hint = buildBridgeToTenHint(left, right);
 
   return (
@@ -110,4 +110,4 @@ function Hint({ left, right }: HintProps) {
   );
 }
 
-export default Hint;
+export default SubtractionHint;
