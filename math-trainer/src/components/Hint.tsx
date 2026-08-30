@@ -5,27 +5,36 @@ interface HintProps {
   right: number;
 }
 
-function Hint({
-  left,
-  right,
-}: HintProps) {
-  const hint =
-    buildBridgeToTenHint(left, right);
+function Hint({ left, right }: HintProps) {
+  const hint = buildBridgeToTenHint(left, right);
 
   return (
     <div className="hint-box">
-        <img
-            src="/cube-grass.png"
-            alt=""
-            className="hint-cube"
-            aria-hidden="true"
-        />
+      <img
+        src="/cube-grass.png"
+        alt=""
+        className="hint-cube"
+        aria-hidden="true"
+      />
+
       <div className="hint-title">
         💡 Schritt für Schritt
       </div>
 
       <div className="hint-original">
-        {left} − {right}
+        <span className="math-token token-start">
+          {left}
+        </span>
+
+        <span className="math-operator"> − </span>
+
+        <span className="math-token token-subtract">
+          {right}
+        </span>
+
+        <span className="math-operator"> = </span>
+
+        <span className="math-question">?</span>
       </div>
 
       <div className="hint-step">
@@ -33,9 +42,23 @@ function Hint({
           1. Erst bis zum Zehner:
         </span>
 
-        <strong>
-          {hint.start} − {hint.toTenAmount} = {hint.ten}
-        </strong>
+        <div className="hint-equation">
+          <span className="math-token token-start">
+            {hint.start}
+          </span>
+
+          <span className="math-operator"> − </span>
+
+          <span className="math-token token-bridge">
+            {hint.toTenAmount}
+          </span>
+
+          <span className="math-operator"> = </span>
+
+          <span className="math-token token-ten">
+            {hint.ten}
+          </span>
+        </div>
       </div>
 
       <div className="hint-step">
@@ -43,9 +66,23 @@ function Hint({
           2. Zerlege die {hint.subtract}:
         </span>
 
-        <strong>
-          {hint.subtract} = {hint.toTenAmount} + {hint.remainingAmount}
-        </strong>
+        <div className="hint-equation">
+          <span className="math-token token-subtract">
+            {hint.subtract}
+          </span>
+
+          <span className="math-operator"> = </span>
+
+          <span className="math-token token-bridge">
+            {hint.toTenAmount}
+          </span>
+
+          <span className="math-operator"> + </span>
+
+          <span className="math-token token-rest">
+            {hint.remainingAmount}
+          </span>
+        </div>
       </div>
 
       <div className="hint-step">
@@ -53,9 +90,21 @@ function Hint({
           3. Jetzt den Rest:
         </span>
 
-        <strong>
-          {hint.ten} − {hint.remainingAmount} = ?
-        </strong>
+        <div className="hint-equation">
+          <span className="math-token token-ten">
+            {hint.ten}
+          </span>
+
+          <span className="math-operator"> − </span>
+
+          <span className="math-token token-rest">
+            {hint.remainingAmount}
+          </span>
+
+          <span className="math-operator"> = </span>
+
+          <span className="math-question">?</span>
+        </div>
       </div>
     </div>
   );

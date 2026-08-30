@@ -639,3 +639,57 @@ h1 {
 
   font-size: 18px;
 }
+
+.math-token {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 42px;
+  min-height: 42px;
+
+  padding: 2px 8px;
+
+  border: 3px solid;
+  border-radius: 10px;
+
+  font-weight: 700;
+  line-height: 1;
+}
+
+.hint-equation,
+.hint-original {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.math-operator,
+.math-question,
+.math-result {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+}
+
+.token-start {
+  border-color: #4263eb;
+}
+
+.token-subtract {
+  border-color: #2f9e44;
+}
+
+.token-bridge {
+  border-color: #f59f00;
+}
+
+.token-rest {
+  border-color: #e64980;
+}
+
+.token-ten {
+  border-color: #845ef7;
+}
