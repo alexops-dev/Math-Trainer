@@ -1,0 +1,23 @@
+{
+  "id": "addition-crossing-20",
+  "title": "Plus mit Zehnerübergang bis 20",
+  "operation": "addition",
+
+  "generator": {
+    "addendMin": 2,
+    "addendMax": 9,
+
+    "resultMin": 11,
+    "resultMax": 19,
+
+    "requireTensCrossing": true
+  },
+
+  "session": {
+    "questions": 10
+  },
+
+  "hint": {
+    "type": "additionBridgeToTen"
+  }
+}

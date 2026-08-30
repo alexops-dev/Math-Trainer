@@ -3,7 +3,7 @@ import subtractionConfig from '../../config/subtraction-crossing-20.json';
 import { generateSubtractionExercise } from '../../math/generators/subtraction';
 
 import type {
-  ExerciseConfig,
+  SubtractionExerciseConfig,
 } from '../../math/types';
 
 import type {
@@ -13,7 +13,7 @@ import type {
 import SubtractionHint from './SubtractionHint';
 
 const config =
-  subtractionConfig as ExerciseConfig;
+  subtractionConfig as SubtractionExerciseConfig;
 
 export const subtractionCrossing20: ExerciseModule =
   {
