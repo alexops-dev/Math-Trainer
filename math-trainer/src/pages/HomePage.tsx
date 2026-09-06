@@ -1,9 +1,11 @@
 interface HomePageProps {
-  onStartSubtraction: () => void;
+  onStartExercise: (
+    exerciseId: string
+  ) => void;
 }
 
 function HomePage({
-  onStartSubtraction,
+  onStartExercise,
 }: HomePageProps) {
   return (
     <main className="app">
@@ -30,9 +32,14 @@ function HomePage({
         </h2>
 
         <div className="exercise-cards">
+
           <button
             className="exercise-card"
-            onClick={onStartSubtraction}
+            onClick={() =>
+              onStartExercise(
+                'subtraction-crossing-20'
+              )
+            }
           >
             <span className="exercise-card-icon">
               ➖
@@ -50,6 +57,32 @@ function HomePage({
               Starten →
             </span>
           </button>
+
+          <button
+            className="exercise-card"
+            onClick={() =>
+              onStartExercise(
+                'addition-crossing-20'
+              )
+            }
+          >
+            <span className="exercise-card-icon">
+              ➕
+            </span>
+
+            <strong>
+              Addition
+            </strong>
+
+            <span>
+              Mit Zehnerübergang bis 20
+            </span>
+
+            <span className="exercise-card-action">
+              Starten →
+            </span>
+          </button>
+
         </div>
       </div>
     </main>

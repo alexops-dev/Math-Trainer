@@ -2,39 +2,41 @@ import { useState } from 'react';
 
 import HomePage from './pages/HomePage';
 import TrainerPage from './pages/TrainerPage';
+
 import {
   exerciseRegistry,
 } from './exercises/registry';
-const subtractionExercise =
-  exerciseRegistry[
-    'subtraction-crossing-20'
-  ];
 
 import './App.css';
 
-type Page =
-  | 'home'
-  | 'subtraction';
-
 function App() {
-  const [page, setPage] =
-    useState<Page>('home');
+  const [
+    selectedExerciseId,
+    setSelectedExerciseId,
+  ] = useState<string | null>(null);
 
-  if (page === 'subtraction') {
+  if (selectedExerciseId) {
+    const exerciseModule =
+      exerciseRegistry[
+        selectedExerciseId
+      ];
+
     return (
-    <TrainerPage
-      exerciseModule={
-        subtractionExercise
-      }
-      onBack={() => setPage('home')}
-    />
+      <TrainerPage
+        exerciseModule={
+          exerciseModule
+        }
+        onBack={() =>
+          setSelectedExerciseId(null)
+        }
+      />
     );
   }
 
   return (
     <HomePage
-      onStartSubtraction={() =>
-        setPage('subtraction')
+      onStartExercise={
+        setSelectedExerciseId
       }
     />
   );
