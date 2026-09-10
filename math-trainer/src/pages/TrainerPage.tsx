@@ -324,7 +324,13 @@ function TrainerPage({
 
         <div className="trainer-layout">
           <section className="trainer-main">
-            <div className="exercise">
+            <div
+              className={
+                feedback === 'correct'
+                  ? 'exercise exercise-success'
+                  : 'exercise'
+              }
+            >
               <span>{exercise.left}</span>
 
               <span>
@@ -352,44 +358,44 @@ function TrainerPage({
               </div>
             )}
 
-            {feedback !== 'correct' && (
-              <div className="mode-toggle">
-                <span
-                  className={
-                    trainerMode === 'learning'
-                      ? 'mode-label active'
-                      : 'mode-label'
-                  }
-                >
-                  Lernmodus
-                </span>
+            <div
+              className={
+                feedback === 'correct'
+                  ? 'mode-toggle mode-toggle-hidden'
+                  : 'mode-toggle'
+              }
+            >
+              <span
+                className={
+                  trainerMode === 'learning'
+                    ? 'mode-label active'
+                    : 'mode-label'
+                }
+              >
+                Lernmodus
+              </span>
 
-                <label className="switch">
-                  <input
-                    type="checkbox"
-                    checked={
-                      trainerMode === 'practice'
-                    }
-                    onChange={
-                      toggleTrainerMode
-                    }
-                  />
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={trainerMode === 'practice'}
+                  onChange={toggleTrainerMode}
+                  disabled={feedback === 'correct'}
+                />
 
-                  <span className="slider" />
-                </label>
+                <span className="slider" />
+              </label>
 
-                <span
-                  className={
-                    trainerMode === 'practice'
-                      ? 'mode-label active'
-                      : 'mode-label'
-                  }
-                >
-                  Übungsmodus
-                </span>
-              </div>
-            )}
-
+              <span
+                className={
+                  trainerMode === 'practice'
+                    ? 'mode-label active'
+                    : 'mode-label'
+                }
+              >
+                Übungsmodus
+              </span>
+            </div>
             <div className="hint-button-mobile">
               {trainerMode === 'practice' &&
                 feedback !== 'correct' && (
