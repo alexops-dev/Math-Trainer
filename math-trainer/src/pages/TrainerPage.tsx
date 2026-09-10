@@ -440,7 +440,7 @@ function TrainerPage({
               </button>
             )}
 
-            {feedback === 'correct' && (
+            {/* {feedback === 'correct' && (
               <button
                 className="primary-button"
                 onClick={nextExercise}
@@ -450,7 +450,7 @@ function TrainerPage({
                   ? 'Ergebnis'
                   : 'Weiter'}
               </button>
-            )}
+            )} */}
 
             <div className="score">
               Beim ersten Versuch richtig:{' '}

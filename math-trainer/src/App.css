@@ -816,3 +816,55 @@ h1 {
 .back-button:hover {
   text-decoration: underline;
 }
+
+/* Trainer page  Animation */
+.app {
+  position: relative;
+}
+
+.app::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background: transparent;
+
+  transition: background 0.2s ease;
+}
+
+.app-success::before {
+  animation: success-flash 1.2s ease-in-out;
+}
+
+@keyframes success-flash {
+  0% {
+    background: rgba(47, 158, 68, 0);
+  }
+
+  20% {
+    background: rgba(47, 158, 68, 0.06);
+  }
+
+  45% {
+    background: rgba(47, 158, 68, 0.14);
+  }
+
+  70% {
+    background: rgba(47, 158, 68, 0.09);
+  }
+
+  100% {
+    background: rgba(47, 158, 68, 0);
+  }
+}
+
+@media (
+  prefers-reduced-motion: reduce
+) {
+  .app-success::before {
+    animation: none;
+  }
+}
