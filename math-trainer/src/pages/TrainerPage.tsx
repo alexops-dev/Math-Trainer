@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NumberPad from '../components/NumberPad';
 import SessionSummary from '../components/SessionSummary';
 import type {
@@ -192,6 +192,20 @@ function TrainerPage({
 
     setHintUsedForCurrentQuestion(false);
   };
+  
+  useEffect(() => {
+  if (feedback !== 'correct') {
+    return;
+  }
+
+  const timer = window.setTimeout(() => {
+    nextExercise();
+  }, 1100);
+
+  return () => {
+    window.clearTimeout(timer);
+  };
+  }, [feedback]);
 
   const restartSession = () => {
     setExercise(createExercise());
